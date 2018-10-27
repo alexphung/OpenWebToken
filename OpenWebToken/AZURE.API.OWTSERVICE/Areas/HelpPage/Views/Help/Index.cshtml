@@ -1,0 +1,50 @@
+@using System.Web.Http
+@using System.Configuration;
+@using System.Web.Http.Controllers
+@using System.Web.Http.Description
+@using System.Collections.ObjectModel
+@using AZURE.API.OWTSERVICE.Areas.HelpPage.Models
+@model Collection<ApiDescription>
+
+@{
+    ViewBag.Title = ConfigurationManager.AppSettings["HelpPageTitle"];
+
+    // Group APIs by controller
+    ILookup<HttpControllerDescriptor, ApiDescription> apiGroups = Model.ToLookup(api => api.ActionDescriptor.ControllerDescriptor);
+}
+
+<link type="text/css" href="~/Areas/HelpPage/HelpPage.css" rel="stylesheet" />
+<header class="help-page">
+    <div class="content-wrapper">
+        <div class="float-left">
+            <h1>@ViewBag.Title</h1>
+        </div>
+    </div>
+</header>
+<div id="body" class="help-page">
+    <section class="featured">
+        <div class="content-wrapper">
+            <h2>Introduction</h2>
+            <p>
+                The scope of this Open Web Token API is to help address some of the security concern to support existing and future internal
+                application. Open Web Token Service will help leverage and establish a trusted token base authorization access between a client application
+                and the service that the client try to consume. This trust is build in addition to an existing Authentication process that are
+                already put in place. The token will only be generated after the user have <strong>Successfully Login</strong> to the client application
+                or system. In this service we will provide the following web methods to establish an Access Token.
+            </p>
+            <p>
+                <h3>Definition of an Access Token</h3>
+                Access tokens are tokens that give those who have them access to protected resources. These
+                tokens are usually short-lived and may have an expiration date or time embedded in them. They may also
+                carry or be associated with additional information (for instance, an access token may carry the IP
+                address from which requests are allowed). This additional data is implementation defined.
+            </p>
+        </div>
+    </section>
+    <section class="content-wrapper main-content clear-fix">
+        @foreach (var group in apiGroups)
+        {
+            @Html.DisplayFor(m => group, "ApiGroup")
+        }
+    </section>
+</div>
