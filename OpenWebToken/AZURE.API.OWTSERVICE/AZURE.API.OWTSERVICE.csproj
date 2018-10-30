@@ -317,7 +317,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-	<Target Name="BeforeBuild">
-		<TransformXml Source="Web.Base.config" Transform="Web.$(Configuration).config" Destination="Web.config" />
-	</Target>
 </Project>
