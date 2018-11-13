@@ -98,7 +98,7 @@ namespace AZURE.API.OWTSERVICE.Controllers
         /// Only allowable Host Request with a valid Token can proceed with executing this validation method.
         /// This will allow the client to validate the JSON Web Token by Get-Method which requires the client to provide the
         /// JSON Web Token via the Request Header. 
-        /// Example in the Header --> Authorization: Bearer [ENCRYPTED_JSON_WEB_TOKEN]
+        /// Example in the Header -- Authorization: Bearer [ENCRYPTED_JSON_WEB_TOKEN]
         /// </summary>
         /// <returns>HttpResponseMessage - a "True" or "False" message if the token failed the validation.</returns>
         [HttpPost]
