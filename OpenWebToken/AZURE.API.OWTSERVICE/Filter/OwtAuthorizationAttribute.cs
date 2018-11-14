@@ -28,8 +28,8 @@ namespace AZURE.API.OWTSERVICE.Filter
             try
             {
                 var roles = new List<string>();
-                string[] hosts = ConfigurationManager.AppSettings["AcceptsRequestFrom"].Split('|');
-                List<string> incomingHosts = hosts.ToList<string>();
+                string[] callers = ConfigurationManager.AppSettings["AcceptsRequestFrom"].Split('|');
+                List<string> incomingHosts = callers.ToList<string>();
 
                 var ctx = actionContext.Request.Properties["MS_HttpContext"] as HttpContextWrapper;
                 //Took out the condition "&& !incomingHosts.Contains(ctx.Request.UserAgent) "
@@ -41,26 +41,20 @@ namespace AZURE.API.OWTSERVICE.Filter
                 Helper.LogData(ConfigurationManager.AppSettings["ServiceLog"], $"Request ctx.Request.UserHostName: {ctx.Request.UserHostName}");
                 Helper.LogData(ConfigurationManager.AppSettings["ServiceLog"], $"Request Reverse DSN Lookup: {iphe.HostName}");
 
-                if (ctx.Request.UserAgent == ConfigurationManager.AppSettings["DefaultUserAgent"])
+                bool isAllow = true;
+                string[] blockList = ConfigurationManager.AppSettings["BlockRequestList"].Split('|');
+                List<string> blocks = blockList.ToList<string>();
+                if(blocks.Contains(ctx.Request.UserAgent) ||
+                    blocks.Contains(ctx.Request.UserHostAddress) ||
+                    blocks.Contains(ctx.Request.UserHostName) ||
+                    blocks.Contains(iphe.HostName))
                 {
-                    clientName = string.Empty;
-                }
-                if (string.IsNullOrEmpty(clientName))
-                {
-                    string[] dshsDomain = iphe.HostName.Split('.');
-                    if(dshsDomain.Length == 4)
-                    {
-                        clientName = $"{dshsDomain[1]}.{dshsDomain[2]}.{dshsDomain[3]}";
-                    }
-                    else
-                    {
-                        clientName = string.Empty;
-                    }                  
+                    isAllow = false;
                 }
                 
                 //Helper.LogData(ConfigurationManager.AppSettings["ServiceLog"], $"[{ctx.Request.UserHostAddress}] [{iphe.HostName}] [{ctx.Request.UserAgent}]");
                 
-                if (incomingHosts.Contains(clientName))
+                if (isAllow)
                 {
                     roles.Add("InAllowableCallList");
 
