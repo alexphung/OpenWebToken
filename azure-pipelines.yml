@@ -44,7 +44,7 @@ steps:
      **\bin\$(BuildConfiguration)\**
      src\*.testsettings
     TargetFolder: '$(build.artifactstagingdirectory)'
-  condition: succededOrFailed()
+  condition: succeededOrFailed()
   
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
