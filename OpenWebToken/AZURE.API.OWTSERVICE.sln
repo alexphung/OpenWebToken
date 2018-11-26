@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AZURE.API.OWTSERVICE", "AZURE.API.OWTSERVICE\AZURE.API.OWTSERVICE.csproj", "{2B679C74-AAB6-441B-9C0A-6246723041F9}"
 EndProject
@@ -28,8 +28,8 @@ Global
 		{2B679C74-AAB6-441B-9C0A-6246723041F9}.Prod|Any CPU.Build.0 = Prod|Any CPU
 		{2B679C74-AAB6-441B-9C0A-6246723041F9}.QA|Any CPU.ActiveCfg = QA|Any CPU
 		{2B679C74-AAB6-441B-9C0A-6246723041F9}.QA|Any CPU.Build.0 = QA|Any CPU
-		{2B679C74-AAB6-441B-9C0A-6246723041F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2B679C74-AAB6-441B-9C0A-6246723041F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B679C74-AAB6-441B-9C0A-6246723041F9}.Release|Any CPU.ActiveCfg = Train|Any CPU
+		{2B679C74-AAB6-441B-9C0A-6246723041F9}.Release|Any CPU.Build.0 = Train|Any CPU
 		{2B679C74-AAB6-441B-9C0A-6246723041F9}.Train|Any CPU.ActiveCfg = Train|Any CPU
 		{2B679C74-AAB6-441B-9C0A-6246723041F9}.Train|Any CPU.Build.0 = Train|Any CPU
 		{B7F4532E-4DFD-4A1D-B423-2FCE3E38E5E2}.Azure|Any CPU.ActiveCfg = Azure|Any CPU
@@ -49,5 +49,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3B33FDB5-FFC0-42ED-A191-101BB265F2C2}
 	EndGlobalSection
 EndGlobal
