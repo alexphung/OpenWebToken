@@ -1,78 +1,83 @@
 openapi: 3.0.0
 info:
   title: Open Web Token API
-  description: Generate and decipher security token for use in authorization and authentication.
+  description: >-
+    Generate and decipher security token for use in authorization and
+    authentication.
   version: 1.0.1
-  
 servers:
-  - url: https://openwebtoken.azurewebsites.net
+  - url: 'https://openwebtoken.azurewebsites.net'
     description: This is the production server.
-  - url: https://openwebtoken-preprod.azurewebsites.net
+  - url: 'https://openwebtoken-preprod.azurewebsites.net'
     description: This is the Pre-Production Server.
-  - url: https://openwebtoken-development.azurewebsites.net 
+  - url: 'https://openwebtoken-development.azurewebsites.net'
     description: This is the development server.
-
 paths:
   /api/v1/owt/GenerateOwtToken:
     post:
       summary: return an 3-parts encrypted token string.
-      description: This endpoint will take in the required parameters to use for creating the encrypted token.
+      description: >-
+        This endpoint will take in the required parameters to use for creating
+        the encrypted token.
       requestBody:
         content:
-          'application/json':
+          application/json:
             schema:
               $ref: '#/components/schemas/OwtPayloadContract'
       responses:
-        '202':
+        '200':
           description: This is the response body collection.
-          
+        '406':
+          description: The request body have some parameters that are not acceptable.
   /api/v1/owt/GetPayloadFromToken:
     post:
       summary: Extract the Token Information.
       security:
         - bearerAuth: []
       responses:
-        '202':
+        '200':
           description: This is the response body collection.
-  
+        '400':
+          description: The token wasn't provide in the request header.
+        '406':
+          description: The request body have some parameters that are not acceptable.
   /api/v1/owt/InvalidateToken:
     post:
       summary: Validate if the token is valid or not.
       security:
         - bearerAuth: []
       responses:
-        '202':
+        '200':
           description: True if the token legit otherwise False.
-        
+        '406':
+          description: The request body have some parameters that are not acceptable.
 components:
   schemas:
-     OwtPayloadContract:
-        properties:
-           Issuer:
-              type: string
-              example: Open Web Token
-           Audience:
-              type: string
-              example: Fiddler
-           Actor:
-              type: string
-              example: domain\phunga
-           Role:
-              type: string
-              example: developer
-           Name:
-              type: string
-              example: Alex Phung
-           Email:
-              type: string
-              example: alex.phung@donotreply.com
-        required:
-           - Issuer
-           - Audience
-  
+    OwtPayloadContract:
+      properties:
+        Issuer:
+          type: string
+          example: Open Web Token
+        Audience:
+          type: string
+          example: Fiddler
+        Actor:
+          type: string
+          example: domain\phunga
+        Role:
+          type: string
+          example: developer
+        Name:
+          type: string
+          example: Alex Phung
+        Email:
+          type: string
+          example: alex.phung@donotreply.com
+      required:
+        - Issuer
+        - Audience
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
-  

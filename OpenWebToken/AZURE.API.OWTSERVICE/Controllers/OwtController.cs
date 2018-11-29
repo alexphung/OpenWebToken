@@ -83,7 +83,7 @@ namespace AZURE.API.OWTSERVICE.Controllers
                 // Log the token that was generated.
                 Helper.LogData(ConfigurationManager.AppSettings["ServiceLog"], $"[{Helper.ServerIP(Request.Headers.Host)}] [JSON_WEB_TOKEN:{(!string.IsNullOrEmpty(tokenString) ? "CREATED" : "NULL|EMPTY")}]");
 
-                resMsg = Request.CreateResponse(HttpStatusCode.Accepted, tokenString);
+                resMsg = Request.CreateResponse(HttpStatusCode.OK, tokenString);
             }
             catch (Exception ex)
             {
@@ -127,17 +127,17 @@ namespace AZURE.API.OWTSERVICE.Controllers
                         isValid = true;
                         payload = (validatedToken as JwtSecurityToken).Payload;
 
-                        resMsg = Request.CreateResponse(HttpStatusCode.Accepted, isValid.ToString());
+                        resMsg = Request.CreateResponse(HttpStatusCode.OK, isValid.ToString());
                     }
                     else
                     {
                         isValid = false;
-                        resMsg = Request.CreateResponse(HttpStatusCode.Accepted, isValid.ToString());
+                        resMsg = Request.CreateResponse(HttpStatusCode.OK, isValid.ToString());
                     }
                 }
                 else
                 {
-                    resMsg = Request.CreateResponse(HttpStatusCode.Accepted, isValid.ToString());
+                    resMsg = Request.CreateResponse(HttpStatusCode.OK, isValid.ToString());
                 }
 
                 // Log the Token that are being Invalidate Against and the result Status.
@@ -180,11 +180,11 @@ namespace AZURE.API.OWTSERVICE.Controllers
                     {
                         payload = (validatedToken as JwtSecurityToken).Payload;
 
-                        resMsg = Request.CreateResponse(HttpStatusCode.Accepted, payload);                        
+                        resMsg = Request.CreateResponse(HttpStatusCode.OK, payload);                        
                     }
                     else
                     {
-                        resMsg = Request.CreateResponse(HttpStatusCode.Accepted, payload);
+                        resMsg = Request.CreateResponse(HttpStatusCode.OK, payload);
                     }
                 }
                 else
